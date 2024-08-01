@@ -1,7 +1,7 @@
 # usuario_service.py
 import hashlib
-from usuario import FabricaUsuario
 import sqlite3
+from usuario import FabricaUsuario
 
 class UsuarioService:
     @staticmethod

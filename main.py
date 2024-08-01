@@ -2,10 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 from facade import SIIPOLFacade
-from usuario import Administrador, TecnicoForense, InvestigadorCriminalistico
 from database import crear_base_datos
-
-ventana_login = None
 
 def ventana_admin():
     ventana = tk.Tk()
@@ -45,7 +42,6 @@ def ventana_usuario(usuario):
     ventana.mainloop()
 
 def ventana_login():
-    global ventana_login
     ventana_login = tk.Tk()
     ventana_login.title("SISTEMA INTEGRADO DE INFORMACION DE BASE DE DATOS")
 
