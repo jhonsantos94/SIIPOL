@@ -1,8 +1,8 @@
-# usuario.py
 from abc import ABC, abstractmethod
 
 class Usuario(ABC):
-    def __init__(self, username, password):
+    def __init__(self, id, username, password):
+        self.id = id  # Agregar el atributo id
         self.username = username
         self.password = password
 
@@ -24,12 +24,12 @@ class InvestigadorCriminalistico(Usuario):
 
 class FabricaUsuario:
     @staticmethod
-    def crear_usuario(role, username, password):
+    def crear_usuario(id, role, username, password):
         if role == "Administrador":
-            return Administrador(username, password)
+            return Administrador(id, username, password)
         elif role == "TecnicoForense":
-            return TecnicoForense(username, password)
+            return TecnicoForense(id, username, password)
         elif role == "InvestigadorCriminalistico":
-            return InvestigadorCriminalistico(username, password)
+            return InvestigadorCriminalistico(id, username, password)
         else:
             raise ValueError(f"Rol desconocido: {role}")

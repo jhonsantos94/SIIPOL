@@ -13,8 +13,8 @@ class UsuarioService:
         conn.close()
 
         if user:
-            if password == user[2]:
-                return FabricaUsuario.crear_usuario(user[3], user[1], user[2])
+            if password == user[2]:  # user[2] es la contraseña
+                return FabricaUsuario.crear_usuario(user[0], user[3], user[1], user[2])  # user[0] es el id
         return None
 
     @staticmethod
@@ -42,3 +42,12 @@ class UsuarioService:
     @staticmethod
     def encriptar_password(password):
         return hashlib.sha256(password.encode()).hexdigest()
+    
+    @staticmethod
+    def obtener_escenas():
+        conn = sqlite3.connect('usuarios.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM escenas")
+        escenas = cursor.fetchall()
+        conn.close()
+        return escenas

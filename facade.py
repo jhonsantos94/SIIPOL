@@ -1,7 +1,5 @@
-# facade.py
 from tkinter import messagebox
 from usuario_service import UsuarioService
-from command import RegisterUserCommand, LoginUserCommand
 
 class SIIPOLFacade:
     @staticmethod
@@ -9,23 +7,23 @@ class SIIPOLFacade:
         username = entry_username.get()
         password = entry_password.get()
         
-        command = LoginUserCommand(username, password)
-        usuario = command.execute()
+        usuario = UsuarioService.autenticar_usuario(username, password)
         
         if usuario:
             messagebox.showinfo("Login exitoso", f"Bienvenido {usuario.username}")
             ventana_login.destroy()
-            if usuario.get_role() == 'Administrador':
+            
+            role = usuario.get_role()
+            if role == 'Administrador':
                 ventana_admin()
             else:
-                ventana_usuario(usuario)
+                ventana_usuario(usuario, role)
         else:
             messagebox.showerror("Error", "Usuario o contraseña incorrectos")
 
     @staticmethod
     def register(admin_username, admin_password, new_username, new_password, role):
-        command = RegisterUserCommand(admin_username, admin_password, new_username, new_password, role)
-        if command.execute():
+        if UsuarioService.registrar_usuario(admin_username, admin_password, new_username, new_password, role):
             messagebox.showinfo("Registro exitoso", f"Usuario {new_username} creado exitosamente")
         else:
             messagebox.showerror("Error", "Error al registrar el usuario")
@@ -37,3 +35,7 @@ class SIIPOLFacade:
     @staticmethod
     def encriptar_password(password):
         return UsuarioService.encriptar_password(password)
+
+    @staticmethod
+    def obtener_escenas():
+        return UsuarioService.obtener_escenas()
